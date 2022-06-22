@@ -1,0 +1,1208 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Build and deploy a full MPLS network on vMX routers.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://cdot65.github.io/juniper-mpls-l3vpn-demo/docs/automation/generate.py/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>generate.py - Juniper MPLS L3VPN Demo</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffffff">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <!-- Additional styles for landing page -->
+<style>
+  .md-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    color: #fff;
+    background-color: #84b140;
+    box-shadow: 0 0 0.2rem transparent, 0 0.2rem 0.4rem transparent;
+  }
+</style>
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+  <!-- Top-level navigation -->
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+    <!-- Link to home -->
+    <a
+      href="https://cdot65.github.io/juniper-mpls-l3vpn-demo/"
+      title="Juniper MPLS L3VPN Demo"
+      class="md-header__button md-logo"
+      aria-label="Juniper MPLS L3VPN Demo"
+    >
+      <img
+        src="https://raw.githubusercontent.com/cdot65/juniper-mpls-l3vpn-demo/21794c999f67b65d38d7584385721a9ee16aaedc/assets/images/favicon.svg"
+      />
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"> Juniper MPLS L3VPN Demo </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+             generate.py 
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button to open search dialogue -->
+    
+    <label class="md-header__button md-icon" for="__search">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    </label>
+
+    <!-- Search interface -->
+    
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+    <!-- Repository containing source -->
+    
+    <div class="md-header__source">
+<a href="https://github.com/cdot65/juniper-mpls-l3vpn-demo/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cdot65/juniper-mpls-l3vpn-demo
+  </div>
+</a></div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Juniper MPLS L3VPN Demo" class="md-nav__button md-logo" aria-label="Juniper MPLS L3VPN Demo" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 2.75C0 1.784.784 1 1.75 1h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25V2.75zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25H1.75zM7.25 8a.75.75 0 0 1-.22.53l-2.25 2.25a.75.75 0 1 1-1.06-1.06L5.44 8 3.72 6.28a.75.75 0 1 1 1.06-1.06l2.25 2.25c.141.14.22.331.22.53zm1.5 1.5a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3z"/></svg>
+
+    </a>
+    Juniper MPLS L3VPN Demo
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/cdot65/juniper-mpls-l3vpn-demo/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    cdot65/juniper-mpls-l3vpn-demo
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Documentation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        Automation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Automation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Automation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_2" type="checkbox" id="__nav_2_2_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2_2_2">
+        Scripts
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Scripts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure.py/" class="md-nav__link">
+        configure.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          generate.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        generate.py
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    📌 Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    🐍 Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-deep-dive" class="md-nav__link">
+    📝 Code Deep Dive
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Code Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inventory" class="md-nav__link">
+    Inventory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-directory" class="md-nav__link">
+    Output Directory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jinja2-options" class="md-nav__link">
+    Jinja2 Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-variables" class="md-nav__link">
+    Device Variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    main()
+  </a>
+  
+    <nav class="md-nav" aria-label="main()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-configurations" class="md-nav__link">
+    Build configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-to-a-local-file" class="md-nav__link">
+    Writing to a local file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-script" class="md-nav__link">
+    Initialize script
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    🚀 Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots" class="md-nav__link">
+    📸 Screenshots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#script" class="md-nav__link">
+    🐍 Script
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rollback.py/" class="md-nav__link">
+        rollback.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validate.py/" class="md-nav__link">
+        validate.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_3" type="checkbox" id="__nav_2_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_2_3">
+        Tools
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Tools" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dockerfile/" class="md-nav__link">
+        Dockerfile
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../invoke/" class="md-nav__link">
+        Invoke
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../poetry/" class="md-nav__link">
+        Poetry
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_2_4">
+        Workflow
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workflow" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Workflow
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configure/" class="md-nav__link">
+        configure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validate/" class="md-nav__link">
+        validate
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ip/" class="md-nav__link">
+        IP Schema
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/mpls/" class="md-nav__link">
+        MPLS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/routing/" class="md-nav__link">
+        Routing
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Lab Environment
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Lab Environment" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Lab Environment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab-environment/juniper-vlabs/" class="md-nav__link">
+        Juniper vLabs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lab-environment/local/" class="md-nav__link">
+        Local
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    📌 Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    🐍 Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-deep-dive" class="md-nav__link">
+    📝 Code Deep Dive
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Code Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    Imports
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurations" class="md-nav__link">
+    Configurations
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inventory" class="md-nav__link">
+    Inventory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-directory" class="md-nav__link">
+    Output Directory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jinja2-options" class="md-nav__link">
+    Jinja2 Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-variables" class="md-nav__link">
+    Device Variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    main()
+  </a>
+  
+    <nav class="md-nav" aria-label="main()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-configurations" class="md-nav__link">
+    Build configurations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-to-a-local-file" class="md-nav__link">
+    Writing to a local file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-script" class="md-nav__link">
+    Initialize script
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    🚀 Workflow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots" class="md-nav__link">
+    📸 Screenshots
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#script" class="md-nav__link">
+    🐍 Script
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/cdot65/juniper-mpls-l3vpn-demo/edit/mainline/site/content/docs/automation/generate.py.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>generate.py</h1>
+                
+                <h2 id="overview">📌 Overview</h2>
+<p>This script is used when your goal is to just generate the configurations locally. PyEZ would not be the best candidate in this setup, as it's ability to generate template configurations is based upon a connection to a device.</p>
+<p>Instead we will be using the same Jinja2 templating engine, just outside of PyEZ.</p>
+<p>Configurations will be stored in a local directory, as declared within our script below.</p>
+<hr />
+<h2 id="files">🐍 Files</h2>
+<p>Recall that all of our project's automation files are stored within the <a href="https://github.com/cdot65/juniper-mpls-l3vpn-demo/tree/main/files/python">files/python</a> directory.</p>
+<div class="highlight"><pre><span></span><code>files/python
+├── configurations/
+├── templates/
+├── tests/
+├── vars/
+├── configure.py
+├── download.py
+├── generate.py
+├── inventory.yaml
+├── rollback.py
+└── validate.py
+</code></pre></div>
+<p>Our attention in this section will be upon the <code>generate.py</code> script.</p>
+<hr />
+<h2 id="code-deep-dive">📝 Code Deep Dive</h2>
+<h3 id="imports">Imports</h3>
+<p>We will be using the same <code>inventory.yaml</code> file used in our PyEZ configuration task, so we will need to import the ability to read YAML here.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">yaml</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
+</code></pre></div>
+<p>Jinja2 has a couple components that we'll use here,</p>
+<ul>
+<li><code>Environment</code>: configuration options and template functionality</li>
+<li><code>FileSystemLoader</code>: allows us to declare the path of our working directory</li>
+</ul>
+<h3 id="configurations">Configurations</h3>
+<p>We will find a need to make adjustments to some of the default behavior of packages, and in some cases create an object to define some parameter.</p>
+<hr />
+<h4 id="inventory">Inventory</h4>
+<p>We are declaring our device inventory in a YAML markdown, since YAML is easy for humans and powerful for machines.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">inventory</span><span class="p">():</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;inventory.yaml&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">devices</span>
+</code></pre></div>
+<p>Here we are taking advantage of the <code>yaml</code> library we imported and calling the <code>safe_load</code> method to load in the data from our <code>inventory.yaml</code> file.</p>
+<p>The function returns our list of devices as an object called <code>devices</code>.</p>
+<hr />
+<h4 id="output-directory">Output Directory</h4>
+<p>We will want to tell Jinja2 where we expect it to output the templated configurations. Setting it up here as a constant is simply out of convenience.</p>
+<div class="highlight"><pre><span></span><code><span class="n">CONFIG_PATH</span> <span class="o">=</span> <span class="s2">&quot;./configurations/generated&quot;</span>
+</code></pre></div>
+<hr />
+<h4 id="jinja2-options">Jinja2 Options</h4>
+<p>Jinja2 has many options, here we will just focus on some of the more common ones.</p>
+<p>The <code>FileSystemLoader</code> was imported at the top of our script from Jinja2, and it will help us when writting to the local system. Its sole parameter passed references the path that Jinja2 should reference.</p>
+<p>We create a new object called <code>env</code> and set it equal to an instance of the <code>Environment</code> class we imported from Jinja2, and passing it our recently-created <code>file_loader</code> object.</p>
+<p>When autoescaping is enabled, Jinja2 will filter input strings to escape any HTML content submitted via template variables. Without escaping HTML input the application becomes vulnerable to Cross Site Scripting (XSS) attacks.</p>
+<div class="highlight"><pre><span></span><code><span class="n">file_loader</span> <span class="o">=</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="s2">&quot;./&quot;</span><span class="p">)</span>
+<span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">file_loader</span><span class="p">,</span> <span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">env</span><span class="o">.</span><span class="n">lstrip_blocks</span> <span class="o">=</span> <span class="kc">True</span>
+</code></pre></div>
+<p><code>trim_blocks</code>: If this is set to True the first newline after a block is removed.</p>
+<p><code>lstrip_blocks</code>: If this is set to True leading spaces and tabs are stripped from the start of a line to a block.</p>
+<hr />
+<h4 id="device-variables">Device Variables</h4>
+<p>Jinja requires two things to complete its work: a template file and variables to run through it.</p>
+<p>Here we will loop over the devices that are found within the <code>routers</code> group of our <code>inventory.yaml</code> file.</p>
+<p>For each entry in our list, we will look for a variable file in the <code>vars/</code> directory. The name of the file will be based upon our device's hostname, which again was sourced from our <code>devices</code> object.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="s2">&quot;routers&quot;</span><span class="p">]:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vars/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+</code></pre></div>
+<p>The contents of our device's variables will be referenced as <code>stream</code> in the next steps below.</p>
+<h3 id="main"><code>main()</code></h3>
+<p>This is the primary function of our script. Here will find us setting up our Jinja2 environment and running our device's variable file through the configuration template.</p>
+<p>When the <code>main</code> function is called in our <code>if __name__ == "__main__":</code> below, it will be passed the output of our <code>inventory</code> function described above. We will use this list of devices to loop over when generating our configurations.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">devices</span><span class="p">):</span>
+</code></pre></div>
+<hr />
+<h4 id="build-configurations">Build configurations</h4>
+<p>With our device's configuration variables loaded into an object called <code>stream</code>, we will safely load the YAML file's contents into a python dictionary called <code>variables</code>.</p>
+<p>Creating a new object called <code>template</code> and setting it equal an instance of Jinja2's <code>get_template()</code> method, and making sure to tell it where to find our template file.</p>
+<p>Finally, we build our configuration by running our <code>variables</code> object through the <code>render</code> method, and storing the output as <code>output</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;templates/junos.j2&quot;</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">variables</span><span class="p">)</span>
+
+    <span class="c1"># execution goes here.</span>
+
+<span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+</code></pre></div>
+<p>We wrap this all up within a Try/Except clause, enabling us to halt execution and print a message when there's an error with our YAML</p>
+<hr />
+<h4 id="writing-to-a-local-file">Writing to a local file</h4>
+<p>At this point, our generated configuration lives within Python as an object, this step will find us writing this to a local file.</p>
+<p>We open a file for our device's configuration based upon its name, but we need to perform a little cleanup before we write anything.</p>
+<p>A Jinja2 generated configuration will have a lot of blank lines for various reasons, we want to get rid of these blank lines to make it easier to read our configurations. So we loop over each line within our object and perform a <code>strip()</code> operation upon it.</p>
+<p>Only lines with text within them will then be written to our file, with a <code>\n</code> to create a new line break after each line.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONFIG_PATH</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="n">cleanedLine</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">cleanedLine</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cleanedLine</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;config built: </span><span class="si">{</span><span class="n">CONFIG_PATH</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.conf&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Finally we see a print statement on the console, informing us of our success and where to find the configurations.</p>
+<hr />
+<h3 id="initialize-script">Initialize script</h3>
+<p>We will first load our inventory.yaml file into a new Python object <code>devices</code>.</p>
+<p>Our main function will run next, which will take care of the templating a local copy of our configurations.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="workflow">🚀 Workflow</h2>
+<p>Make sure your Python Virtual Environment has the necessary packages installed.</p>
+<blockquote>
+<p><strong>Reminder</strong>: a <a href="https://cdot65.github.io/juniper-mpls-l3vpn-demo/docs/automation/poetry/">Poetry lock file has been provided</a> to help create your virtual environment to reflect ours. You will need to have <a href="https://python-poetry.org/">Poetry installed</a>.</p>
+</blockquote>
+<p>Change into the <code>files/python</code> directory and execute the script</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> files/python
+python generate.py
+</code></pre></div>
+<p>An alternative method of executing the script would be to leverage the Docker container provided with this project.</p>
+<div class="highlight"><pre><span></span><code>invoke generate
+</code></pre></div>
+<hr />
+<h2 id="screenshots">📸 Screenshots</h2>
+<p><img alt="python generate.py" src="https://raw.githubusercontent.com/cdot65/juniper-mpls-l3vpn-demo/dev/site/content/assets/images/generate.png" /></p>
+<hr />
+<h2 id="script">🐍 Script</h2>
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Generate bootstrap configurations for our network devices.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">yaml</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
+
+<span class="c1"># define Jinja2 environment</span>
+<span class="n">CONFIG_PATH</span> <span class="o">=</span> <span class="s2">&quot;./configurations/generated&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">inventory</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Load our inventory.yaml into a python object called routers.&quot;&quot;&quot;</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;inventory.yaml&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">devices</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">devices</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Template configuration with Jinja2 and store locally.&quot;&quot;&quot;</span>
+    <span class="c1"># set up our Jinja2 environment</span>
+    <span class="n">file_loader</span> <span class="o">=</span> <span class="n">FileSystemLoader</span><span class="p">(</span><span class="s2">&quot;./&quot;</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">file_loader</span><span class="p">,</span> <span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">lstrip_blocks</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># begin loop over devices</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">[</span><span class="s2">&quot;routers&quot;</span><span class="p">]:</span>
+        <span class="c1"># create a template based on variables stored in file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vars/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># set up  our environment and render configuration</span>
+                <span class="n">variables</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;templates/junos.j2&quot;</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">variables</span><span class="p">)</span>
+
+                <span class="c1"># write our rendered configuration to a local file</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CONFIG_PATH</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+                        <span class="n">cleanedLine</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                        <span class="k">if</span> <span class="n">cleanedLine</span><span class="p">:</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cleanedLine</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;config built: </span><span class="si">{</span><span class="n">CONFIG_PATH</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">each</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.conf&quot;</span><span class="p">)</span>  <span class="c1"># noqa T001</span>
+            <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>  <span class="c1"># noqa T001</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Main script execution.</span>
+
+<span class="sd">    We will first load our inventory.yaml file into a new Python object `devices`</span>
+<span class="sd">    Our main function will run next, which will take care of the templating</span>
+<span class="sd">    and pushing of our configurations to the remote devices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">inventory</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">devices</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <!-- Application footer -->
+<footer class="md-footer">
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset" style="background-color: #fff">
+    <div class="md-footer-meta__inner md-grid" style="background-color: #fff">
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+        <div
+          class="md-footer-copyright__highlight"
+          style="color: rgb(38, 38, 38)"
+        >
+          Copyright &copy; 2022 cdot65
+        </div>
+        
+        <div style="color: rgb(38, 38, 38)">
+          Made with
+          <a
+            href="https://squidfunk.github.io/mkdocs-material/"
+            target="_blank"
+            rel="noopener"
+            style="color: black"
+          >
+            Material for MkDocs
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["tabs", "instant"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+    
+  </body>
+</html>
